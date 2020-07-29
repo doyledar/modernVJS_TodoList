@@ -10,7 +10,7 @@ package.json
 
 Créer le nouveau dossier src
 Y créer un fichier index.html où on charge 
-<script src: "./main/src/main.js"></script>
+<script src: "./src/main.js"></script>
 et on ajoute un div avec id app
 Créer un fichier /js/main.js
 
@@ -27,5 +27,68 @@ On va faire un build
 parcel build src/index.html
 
 http://localhost:1234
+
+
+
+VIDEO 2
+
+Lancer le parcel
+
+parcel src/index.html
+
+
+Créer un tableau avec un contenu de type json
+const todos = [
+	{id: 1, content: "tâche 1", completed: false},
+	{id: 2, content: "tâche 2", completed: false}
+];
+
+class Todo {
+	constructor (todo){
+		this.id = todo.id;
+		this.content = todo.content;
+		this.completed = todo.completed;
+	}
+}
+
+class TodoList{
+	constructor (data){
+	this.elt = document.querySelector(data.elt);
+	this.todos = [];
+	this.loadTodos(data.todos);
+	console.table(this.todos);
+	}
+	loadTodos (todos){
+		for (let todo of todos){
+			this.todos.push(new Todo(todo));
+		}
+	}	  
+}
+
+new TodoList({
+	elt: '#app',
+	todos   // ou todos:todos 	
+});
+
+
+
+ENSUITE, on va faire des IMPORTS
+
+import todos from './data.js';
+où on met 
+export default et le tableau avec les tâches (ATTENTION sans le const todos devant => UNIQUEMENT le tableau)
+
+
+import TodoList from './modules/TodoList.js';
+y mettre 
+export default 
+et le constructeur de TodoList
+
+idem avec './modules/Todo.js
+avec la classe Todo
+ATTENTION, mettre le import dans le TodoList.js 
+et chemin import Todo from './Todo.js';
+
+
 
 
