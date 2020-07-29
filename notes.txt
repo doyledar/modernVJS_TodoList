@@ -1,0 +1,31 @@
+VANILLA JS MODERNE - TODO LIST
+
+VIDEO 1
+
+parcel bundler :
+npm init -y
+
+package.json
+"main": "src/js/main.js",
+
+Créer le nouveau dossier src
+Y créer un fichier index.html où on charge 
+<script src: "./main/src/main.js"></script>
+et on ajoute un div avec id app
+Créer un fichier /js/main.js
+
+
+
+Tester le bundler
+
+parcel src/index.html
+Va créer un dossier dist et un dossier .cache qu'on va mettre en gitignore
+Amender le commit initial après avoir vidé le gitignore
+
+On va faire un build
+
+parcel build src/index.html
+
+http://localhost:1234
+
+
