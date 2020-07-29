@@ -91,4 +91,30 @@ et chemin import Todo from './Todo.js';
 
 
 
+VIDEO 3  (template => mise en page de l'app)
+
+A la place du console.table, on va lancer une fonction
+this.render();
+
+Dans le render qu'on met après le load 
+render(){
+	this.elt.innerHTML = this.template;
+}
+
+copier les CSS et les mettre dans le src
+ajouter le lien dans le fichier html href = "./css/base.css'/>
+href = "./css/index.css'/>
+
+mettre le code HTML dans un fichier externe
+
+import todoListTemplate from './templates/todoList';
+export defaut 
+code HTML
+
+dans le constructeur data
+rajouter this.template = todoListTemplate;
+
+Supprimer les li du code HTML
+
+
 

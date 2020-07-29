@@ -117,131 +117,79 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/data.js":[function(require,module,exports) {
-"use strict";
+})({"../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = [{
-  id: 1,
-  content: "tâche 1",
-  completed: false
-}, {
-  id: 2,
-  content: "tâche 2",
-  completed: false
-}];
-exports.default = _default;
-},{}],"js/modules/Todo.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Todo = function Todo(todo) {
-  _classCallCheck(this, Todo);
-
-  this.id = todo.id;
-  this.content = todo.content;
-  this.completed = todo.completed;
-};
-
-exports.default = Todo;
-},{}],"js/modules/templates/todoList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = "\n <section class=\"todoapp\">\n  <header class=\"header\">\n    <h1>todos</h1>\n    <input class=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  <section class=\"main\">\n    <input id=\"toggle-all\" class=\"toggle-all\" type=\"checkbox\">\n    <label for=\"toggle-all\">Mark all as complete</label>\n    <ul class=\"todo-list\">\n\n    </ul>\n  </section>\n  <footer class=\"footer\">\n    <span class=\"todo-count\"><strong>1</strong> items left</span>\n    <ul class=\"filters\">\n      <li>\n        <a href=\"#/\" class=\"selected\">All</a>\n      </li>\n      <li>\n        <a href=\"#/active\">Active</a>\n      </li>\n      <li>\n        <a href=\"#/completed\">Completed</a>\n      </li>\n    </ul>\n    <button class=\"clear-completed\">Clear completed</button>\n  </footer>\n</section>\n";
-exports.default = _default;
-},{}],"js/modules/TodoList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Todo = _interopRequireDefault(require("./Todo"));
-
-var _todoList = _interopRequireDefault(require("./templates/todoList"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var TodoList = /*#__PURE__*/function () {
-  function TodoList(data) {
-    _classCallCheck(this, TodoList);
-
-    this.elt = document.querySelector(data.elt);
-    this.todos = [];
-    this.loadTodos(data.todos);
-    this.template = _todoList.default;
-    this.render();
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
   }
 
-  _createClass(TodoList, [{
-    key: "loadTodos",
-    value: function loadTodos(todos) {
-      var _iterator = _createForOfIteratorHelper(todos),
-          _step;
+  return bundleURL;
+}
 
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var todo = _step.value;
-          this.todos.push(new _Todo.default(todo));
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
       }
     }
-  }, {
-    key: "render",
-    value: function render() {
-      this.elt.innerHTML = this.template;
-    }
-  }]);
 
-  return TodoList;
-}();
+    cssTimeout = null;
+  }, 50);
+}
 
-exports.default = TodoList;
-},{"./Todo":"js/modules/Todo.js","./templates/todoList":"js/modules/templates/todoList.js"}],"js/main.js":[function(require,module,exports) {
-"use strict";
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/index.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
 
-var _data = _interopRequireDefault(require("./data.js"));
-
-var _TodoList = _interopRequireDefault(require("./modules/TodoList.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-new _TodoList.default({
-  elt: '#app',
-  todos: _data.default // ou todos:todos
-
-});
-},{"./data.js":"js/data.js","./modules/TodoList.js":"js/modules/TodoList.js"}],"../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -445,5 +393,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/main.js"], null)
-//# sourceMappingURL=/main.fb6bbcaf.js.map
+},{}]},{},["../../../../../Users/gisele/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/css.967bad95.js.map
