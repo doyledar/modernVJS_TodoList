@@ -132,7 +132,20 @@ var _default = [{
   id: 2,
   content: "tâche 2",
   completed: false
+}, {
+  id: 2,
+  content: "tâche 2",
+  completed: true
 }];
+exports.default = _default;
+},{}],"js/modules/templates/todo.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = "\n  <li data-id =\"{{id}}\" class=\"{{isCompletedClass}}\">\n    <input class=\"toggle\" type=\"checkbox\" {{isCompletedChecked}}/>\n    <label>{{content}}</label>\n    <button class=\"destroy\"></button>\n  </li>\n";
 exports.default = _default;
 },{}],"js/modules/Todo.js":[function(require,module,exports) {
 "use strict";
@@ -142,18 +155,47 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _todo = _interopRequireDefault(require("./templates/todo"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Todo = function Todo(todo) {
-  _classCallCheck(this, Todo);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  this.id = todo.id;
-  this.content = todo.content;
-  this.completed = todo.completed;
-};
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Todo = /*#__PURE__*/function () {
+  function Todo(data) {
+    _classCallCheck(this, Todo);
+
+    this.parent = data.parent;
+    this.id = data.todo.id;
+    this.content = data.todo.content;
+    this.completed = data.todo.completed;
+    this.template = _todo.default;
+  }
+
+  _createClass(Todo, [{
+    key: "render",
+    value: function render() {
+      for (var propriete in this) {
+        this.template = this.template.replace('{{' + propriete + '}}', this[propriete]);
+      }
+
+      this.template = this.template.replace('{{isCompletedClass}}', this.completed === true ? 'completed' : '');
+      this.template = this.template.replace('{{isCompletedChecked}}', this.checked === true ? 'checked="checked"' : '');
+      var newTodo = document.createElement('div');
+      newTodo.innerHTML = this.template;
+      this.parent.listElt.appendChild(newTodo);
+    }
+  }]);
+
+  return Todo;
+}();
 
 exports.default = Todo;
-},{}],"js/modules/templates/todoList.js":[function(require,module,exports) {
+},{"./templates/todo":"js/modules/templates/todo.js"}],"js/modules/templates/todoList.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -192,7 +234,9 @@ var TodoList = /*#__PURE__*/function () {
   function TodoList(data) {
     _classCallCheck(this, TodoList);
 
-    this.elt = document.querySelector(data.elt);
+    this.elt = document.querySelector(data.elt); // selection du #app
+
+    this.elt;
     this.todos = [];
     this.loadTodos(data.todos);
     this.template = _todoList.default;
@@ -208,7 +252,10 @@ var TodoList = /*#__PURE__*/function () {
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var todo = _step.value;
-          this.todos.push(new _Todo.default(todo));
+          this.todos.push(new _Todo.default({
+            parent: this,
+            todo: todo
+          }));
         }
       } catch (err) {
         _iterator.e(err);
@@ -220,6 +267,21 @@ var TodoList = /*#__PURE__*/function () {
     key: "render",
     value: function render() {
       this.elt.innerHTML = this.template;
+      this.listElt = this.elt.querySelector('.todo-list');
+
+      var _iterator2 = _createForOfIteratorHelper(this.todos),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var todo = _step2.value;
+          todo.render();
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
     }
   }]);
 
@@ -269,7 +331,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49787" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57067" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

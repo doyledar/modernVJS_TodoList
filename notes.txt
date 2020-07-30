@@ -117,4 +117,125 @@ rajouter this.template = todoListTemplate;
 Supprimer les li du code HTML
 
 
+Ne pas oublier les ` ` dans le template
+
+VIDEO 4 - intégration du template des todo (=> des li)
+
+Dans le render de la todolist, faire une boucle pour faire un render de chaque todo
+=>
+for (let todo of this.todos){
+	todo.render();
+}
+
+
+Dans le todo.js, ajouter une méthode render
+On ne peut pas mettre le render dans le constructeur du todo car le html n'existe pas encore
+render(){
+		
+}
+
+
+dans todo.js
+import todoTemplate from './templates/todo';
+
+this.template = todo.template;
+
+=> dans todo.template
+export default ` 
+HTML li
+`
+
+
+
+A METTRE DANS LE RENDER
+render(){
+	const newTodo = document.createElement('div');
+	newTodo.innerHTML = this.template;
+	document.querySelector('.todo-list').appendChild(newTodo);
+}
+
+Mais on a un problème : un div contient un li => pas accepté par le W3C
+=>
+render(){
+	const newTodo = document.createElement('li');
+	newTodo.classList.add('listItem');
+	newTodo.setAttribute('data-id', this.todo);
+	if(this.completed == true){
+		newTodoClassList.add('completed');	
+	}
+	newTodo.innerHTML = this.template;
+	document.queryselector('.todo-list').appendChild(newTodo);
+}
+
+
+
+MAIS trop lourd => On fait qd-même un div
+
+Et il faut aussi remplacer les trucs statiques par les données du todo .  
+Dans le template, il faut remplacer les trucs dynamiques
+
+this.template = this.template.replace();
+
+// boucle for in et non for of pour parcourir les propriétés // d'un OBJET
+
+boucle for (let propriete in this){
+	this.template = this.template.replace('{{'+propriete+'}}', this[propriete]);
+}
+
+
+Dans le HTML data-id ="{{id}}"
+		label {{content}} 
+
+
+newTodo.innerHTML = this.template;
+document.querySelector('.todo-list').appendChild(newTodo);
+
+Le constructeur n'est pas censé connaître le .todo-list car fait partie du parent.
+
+
+=> ASTUCE
+Dans le constructeur du todo, on va envoyer data au lieu de Todo
+
+//data: {
+//	parent: TodoList,
+//	todo: {id: 1, content: "Tâche1", completed: false}
+//}
+Remplacer le querySelector par
+Envoyer dans todolist.js
+push (newTodo({parent: this, todo: todo}));
+
+dans todo.js 
+constructor (data){
+
+this.parent = data.parent; 
+...
+
+Dans le contructeur du TodoList, dans le loadTodos,
+	this.todos.push(new Todo({parent: this, todo}));
+
+
+constructor(data){
+	this.elt = document.querySelector(data.elt);
+	//this.listElt = this.elt.querySelector('.todo-list);
+	// pas OK car le todo-list n'existe pas encore !
+	this.listElt;  // je le déclare simplement
+
+Ensuite, dan le render du todolist, je peux mettre
+this.list = this.elt.querySelector('.todo-list');
+
+
+
+ENFIN, 
+pour le completed et le checked, on ne peut pas mettre une propriété de l'objet comme on l'a fait pour id et content
+=> class="{{isCompletedClass}}"
+{{isCompletedChecked}}
+
+=> dans le render du todo
+this.template = this.template.replace('{{isCompletedClass}}', (this.completed === true)?'completed':'');
+this.template = this.template.replace('{{isCompletedChecked}}', (this.checked === true)?'checked="checked"':'');
+
+
+
+VIDEO 5
+
 
