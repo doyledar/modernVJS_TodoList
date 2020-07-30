@@ -5,6 +5,7 @@ export default class TodoList{
 	constructor (data){
 	this.elt = document.querySelector(data.elt);  // selection du #app
 	this.elt;
+	this.notCompletedNumber;
 	this.todos = [];
 	this.loadTodos(data.todos);
   this.template = todoListTemplate;
@@ -14,6 +15,7 @@ export default class TodoList{
 		for (let todo of todos){
 			this.todos.push(new Todo({parent: this, todo: todo}));
 		}
+
 	}
 
 
@@ -21,11 +23,23 @@ export default class TodoList{
   render(){
     this.elt.innerHTML = this.template;
 		this.listElt = this.elt.querySelector('.todo-list');
+
 		for (let todo of this.todos){
 			todo.render();
 		}
+			this.setNotCompletedNumber();
 			this.activerBtns();
-  }
+	}
+
+	setNotCompletedNumber(){
+	// méthode array filter
+	this.notCompletedNumber = this.todos.filter(function(todo){
+	return todo.completed === false;
+	}).length;
+	//console.log(this.notCompletedNumber);
+	this.elt.querySelector('#todo-count').innerText = this.notCompletedNumber;
+	}
+
 
 	addTodo(){
 	const content = this.elt.querySelector('.new-todo').value;
@@ -35,6 +49,7 @@ export default class TodoList{
 	this.todos.push(newTodo);
 	newTodo.render();
 	this.elt.querySelector('.new-todo').value = '';
+	this.setNotCompletedNumber();
 	}
 
 

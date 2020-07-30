@@ -208,7 +208,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _default = "\n <section class=\"todoapp\">\n  <header class=\"header\">\n    <h1>todos</h1>\n    <input class=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  <section class=\"main\">\n    <input id=\"toggle-all\" class=\"toggle-all\" type=\"checkbox\">\n    <label for=\"toggle-all\">Mark all as complete</label>\n    <ul class=\"todo-list\">\n\n    </ul>\n  </section>\n  <footer class=\"footer\">\n    <span class=\"todo-count\"><strong>1</strong> items left</span>\n    <ul class=\"filters\">\n      <li>\n        <a href=\"#/\" class=\"selected\">All</a>\n      </li>\n      <li>\n        <a href=\"#/active\">Active</a>\n      </li>\n      <li>\n        <a href=\"#/completed\">Completed</a>\n      </li>\n    </ul>\n    <button class=\"clear-completed\">Clear completed</button>\n  </footer>\n</section>\n";
+var _default = "\n <section class=\"todoapp\">\n  <header class=\"header\">\n    <h1>todos</h1>\n    <input class=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  <section class=\"main\">\n    <input id=\"toggle-all\" class=\"toggle-all\" type=\"checkbox\">\n    <label for=\"toggle-all\">Mark all as complete</label>\n    <ul class=\"todo-list\">\n\n    </ul>\n  </section>\n  <footer class=\"footer\">\n    <span class=\"todo-count\"><strong id=\"todo-count\">1</strong> items left</span>\n    <ul class=\"filters\">\n      <li>\n        <a href=\"#/\" class=\"selected\">All</a>\n      </li>\n      <li>\n        <a href=\"#/active\">Active</a>\n      </li>\n      <li>\n        <a href=\"#/completed\">Completed</a>\n      </li>\n    </ul>\n    <button class=\"clear-completed\">Clear completed</button>\n  </footer>\n</section>\n";
 exports.default = _default;
 },{}],"js/modules/TodoList.js":[function(require,module,exports) {
 "use strict";
@@ -243,6 +243,7 @@ var TodoList = /*#__PURE__*/function () {
     this.elt = document.querySelector(data.elt); // selection du #app
 
     this.elt;
+    this.notCompletedNumber;
     this.todos = [];
     this.loadTodos(data.todos);
     this.template = _todoList.default;
@@ -289,7 +290,18 @@ var TodoList = /*#__PURE__*/function () {
         _iterator2.f();
       }
 
+      this.setNotCompletedNumber();
       this.activerBtns();
+    }
+  }, {
+    key: "setNotCompletedNumber",
+    value: function setNotCompletedNumber() {
+      // méthode array filter
+      this.notCompletedNumber = this.todos.filter(function (todo) {
+        return todo.completed === false;
+      }).length; //console.log(this.notCompletedNumber);
+
+      this.elt.querySelector('#todo-count').innerText = this.notCompletedNumber;
     }
   }, {
     key: "addTodo",
@@ -308,6 +320,7 @@ var TodoList = /*#__PURE__*/function () {
       this.todos.push(newTodo);
       newTodo.render();
       this.elt.querySelector('.new-todo').value = '';
+      this.setNotCompletedNumber();
     }
   }, {
     key: "activerBtns",
