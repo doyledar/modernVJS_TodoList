@@ -238,4 +238,61 @@ this.template = this.template.replace('{{isCompletedChecked}}', (this.checked ==
 
 VIDEO 5
 
+Création d'une nouvelle méthode pour le remplacement des éléments statiques dans le render du Todo
+
+Elle ne sera appelable qu'à parir du render (méthode privée => _)
+
+_replaceInTemplate(){
+	y mettre les replace
+}
+
+Dans le render, 
+this._replaceInTemplate();
+
+Rendre interactif AJOUT TACHE
+
+Dans le TodoList.js, après avoir affiché les todos
+this.activerBtns();
+
+addTodo(){
+	const content = this.elt.querySelector('.new-todo').value;
+	const id = this.todos[this.todos.length - 1].id + 1;
+	const todo = {id, content: content, completed: false};
+	const newTodo  = new Todo({parent: this, todo});
+	this.todos.push(newTodo);
+	newTodo.render();
+	this.elt.querySelector('.new-todo').value = '';
+}
+
+
+// LE THIS EST LE DERNIER ELEMENT AVANT LA FONCTION ANONYME => newTodo => on utilise un fonction fléchée, transparente pour le this
+activerBtns(){
+	this.elt.querySelector('.new-todo').onkeyup = (e) =>{
+	if(e.keyCode === 13){
+		
+}	
+}
+};
+
+
+VIDEO 6
+
+
+dans le constructeur
+this.notCompletedNumber;
+
+Au niveau de la liste, après le render, 
+setNotCompletedNumber(){
+	// méthode array filter
+	this.notCompletedNumber = this.todos.filter(function(todo){
+	return todo.completed === false;
+}).length;	
+this.elt.querySelector('#todo-count').innerText = this.notCompletedNumber;	
+}
+
+
+Lancer la méthode après le rendu, après le for
+
+
+Il faut la relancer qd on fait un addTodo
 

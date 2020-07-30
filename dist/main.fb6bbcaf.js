@@ -177,14 +177,20 @@ var Todo = /*#__PURE__*/function () {
   }
 
   _createClass(Todo, [{
-    key: "render",
-    value: function render() {
+    key: "_replaceTemplate",
+    value: function _replaceTemplate() {
       for (var propriete in this) {
         this.template = this.template.replace('{{' + propriete + '}}', this[propriete]);
       }
 
       this.template = this.template.replace('{{isCompletedClass}}', this.completed === true ? 'completed' : '');
       this.template = this.template.replace('{{isCompletedChecked}}', this.checked === true ? 'checked="checked"' : '');
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      this._replaceTemplate();
+
       var newTodo = document.createElement('div');
       newTodo.innerHTML = this.template;
       this.parent.listElt.appendChild(newTodo);
@@ -282,6 +288,37 @@ var TodoList = /*#__PURE__*/function () {
       } finally {
         _iterator2.f();
       }
+
+      this.activerBtns();
+    }
+  }, {
+    key: "addTodo",
+    value: function addTodo() {
+      var content = this.elt.querySelector('.new-todo').value;
+      var id = this.todos[this.todos.length - 1].id + 1;
+      var todo = {
+        id: id,
+        content: content,
+        completed: false
+      };
+      var newTodo = new _Todo.default({
+        parent: this,
+        todo: todo
+      });
+      this.todos.push(newTodo);
+      newTodo.render();
+      this.elt.querySelector('.new-todo').value = '';
+    }
+  }, {
+    key: "activerBtns",
+    value: function activerBtns() {
+      var _this = this;
+
+      this.elt.querySelector('.new-todo').onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          _this.addTodo();
+        }
+      };
     }
   }]);
 
