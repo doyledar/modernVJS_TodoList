@@ -206,12 +206,22 @@ var Todo = /*#__PURE__*/function () {
       this.parent.setCompletedNumber();
     }
   }, {
+    key: "_destroy",
+    value: function _destroy() {
+      this.elt.remove();
+      this.parent.removeOneById(this.id); //this.parent.SetNotCompletedNumber();
+    }
+  }, {
     key: "_activerBtns",
     value: function _activerBtns() {
       var _this = this;
 
       this.elt.querySelector('.toggle').onclick = function () {
         _this._toggleCompleted();
+      };
+
+      this.elt.querySelector('.destroy').onclick = function () {
+        _this._destroy();
       };
     }
   }]);
@@ -339,6 +349,14 @@ var TodoList = /*#__PURE__*/function () {
       this.todos.push(newTodo);
       newTodo.render();
       this.elt.querySelector('.new-todo').value = '';
+      this.setNotCompletedNumber();
+    }
+  }, {
+    key: "removeOneById",
+    value: function removeOneById(id) {
+      this.todos = this.todos.filter(function (todo) {
+        return todo.id != id;
+      });
       this.setNotCompletedNumber();
     }
   }, {

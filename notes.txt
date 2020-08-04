@@ -331,3 +331,23 @@ this.parent.setNotCompletedNumber();
 
 Attention dans le replace des todos
 Il faut changer 
+
+
+
+VIDEO 8
+Supprimer une tâche
+
+Lié à la todo
+classe .destroy
+
+this._destroy
+
+_destroy
+this.elt.remove();
+this.parent.removeOneById(this.id);
+this.parent.SetNotCompletedNumber();
+
+Au niveau du parent, todoList.js
+removeOneById(id){
+  this.todos = this.todos.filter();	
+}

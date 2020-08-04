@@ -32,9 +32,21 @@ export default class Todo {
 		this.parent.setCompletedNumber();
 	}
 
+	_destroy(){
+		this.elt.remove();
+		this.parent.removeOneById(this.id);
+		//this.parent.SetNotCompletedNumber();
+
+	}
+
+
 	_activerBtns(){
 			this.elt.querySelector('.toggle').onclick = () =>{
 				this._toggleCompleted();
+			};
+
+			this.elt.querySelector('.destroy').onclick = () =>{
+				this._destroy();
 			};
 	}
 }
