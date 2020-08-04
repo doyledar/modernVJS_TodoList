@@ -170,6 +170,7 @@ var Todo = /*#__PURE__*/function () {
     _classCallCheck(this, Todo);
 
     this.parent = data.parent;
+    this.elt;
     this.id = data.todo.id;
     this.content = data.todo.content;
     this.completed = data.todo.completed;
@@ -191,9 +192,27 @@ var Todo = /*#__PURE__*/function () {
     value: function render() {
       this._replaceTemplate();
 
-      var newTodo = document.createElement('div');
-      newTodo.innerHTML = this.template;
-      this.parent.listElt.appendChild(newTodo);
+      this.elt = document.createElement('div');
+      this.elt.innerHTML = this.template;
+      this.parent.listElt.appendChild(this.elt);
+
+      this._activerBtns();
+    }
+  }, {
+    key: "_toggleCompleted",
+    value: function _toggleCompleted() {
+      this.completed = !this.completed;
+      this.elt.querySelector('li').classList.toggle('completed');
+      this.parent.setCompletedNumber();
+    }
+  }, {
+    key: "_activerBtns",
+    value: function _activerBtns() {
+      var _this = this;
+
+      this.elt.querySelector('.toggle').onclick = function () {
+        _this._toggleCompleted();
+      };
     }
   }]);
 
@@ -381,7 +400,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57067" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64129" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

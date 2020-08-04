@@ -3,6 +3,7 @@ import todoTemplate from './templates/todo';
 export default class Todo {
 	constructor (data){
 		this.parent = data.parent;
+		this.elt;
 		this.id = data.todo.id;
 		this.content = data.todo.content;
 		this.completed = data.todo.completed;
@@ -15,14 +16,25 @@ export default class Todo {
 		}
 		this.template = this.template.replace('{{isCompletedClass}}', (this.completed === true?'completed':''));
 		this.template = this.template.replace('{{isCompletedChecked}}', (this.checked === true?'checked="checked"':''));
-
 	}
 
 	render(){
-
 		this._replaceTemplate();
-		const newTodo = document.createElement('div');
-		newTodo.innerHTML = this.template;
-		this.parent.listElt.appendChild(newTodo);
+		this.elt = document.createElement('div');
+		this.elt.innerHTML = this.template;
+		this.parent.listElt.appendChild(this.elt);
+		this._activerBtns();
+	}
+
+	_toggleCompleted(){
+		this.completed = ! this.completed;
+		this.elt.querySelector('li').classList.toggle('completed');
+		this.parent.setCompletedNumber();
+	}
+
+	_activerBtns(){
+			this.elt.querySelector('.toggle').onclick = () =>{
+				this._toggleCompleted();
+			};
 	}
 }

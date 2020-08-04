@@ -296,3 +296,38 @@ Lancer la méthode après le rendu, après le for
 
 Il faut la relancer qd on fait un addTodo
 
+
+
+VIDEO 7
+
+Lié à une Todo et plus à la TodoList
+
+Au moment du render, on peut faire
+this._activerBtns();
+
+
+_toggleCompleted(){
+	this.completed = ! this.completed;
+	this.elt.querySelector('li').classList.toggle('completed');
+}
+
+_activerBtns(){
+	this.elt.querySelector('.toggle').onclick =() => {
+		this._toggleCompleted();
+}
+};
+
+dans le constructeur
+this.elt;
+
+dans le render
+this.elt = document.createElement('div');
+
+plus de newtodo et on appendChild(list.elt);
+
+Il faut relancer la méthode setNotCompletedNumber
+this.parent.setNotCompletedNumber();
+
+
+Attention dans le replace des todos
+Il faut changer 
