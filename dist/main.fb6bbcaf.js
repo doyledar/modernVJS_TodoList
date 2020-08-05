@@ -265,7 +265,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _default = "\n <section class=\"todoapp\">\n  <header class=\"header\">\n    <h1>todos</h1>\n    <input class=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  <section class=\"main\">\n    <input id=\"toggle-all\" class=\"toggle-all\" type=\"checkbox\">\n    <label for=\"toggle-all\">Mark all as complete</label>\n    <ul class=\"todo-list\">\n\n    </ul>\n  </section>\n  <footer class=\"footer\">\n    <span class=\"todo-count\"><strong id=\"todo-count\">1</strong> items left</span>\n    <ul class=\"filters\">\n      <li>\n        <a href=\"#/\" class=\"selected\">All</a>\n      </li>\n      <li>\n        <a href=\"#/active\">Active</a>\n      </li>\n      <li>\n        <a href=\"#/completed\">Completed</a>\n      </li>\n    </ul>\n    <button class=\"clear-completed\">Clear completed</button>\n  </footer>\n</section>\n";
+var _default = "\n <section class=\"todoapp\">\n  <header class=\"header\">\n    <h1>todos</h1>\n    <input class=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  <section class=\"main\">\n    <input id=\"toggle-all\" class=\"toggle-all\" type=\"checkbox\">\n    <label for=\"toggle-all\">Mark all as complete</label>\n    <ul class=\"todo-list\">\n\n    </ul>\n  </section>\n  <footer class=\"footer\">\n    <span class=\"todo-count\"><strong id=\"todo-count\">1</strong> items left</span>\n    <ul class=\"filters\">\n      <li>\n        <a href=\"#/\" data-filter = \"all\" class=\"filter selected\">All</a>\n      </li>\n      <li>\n        <a href=\"#/active\" data-filter = \"active\" class=\"filter\">Active</a>\n      </li>\n      <li>\n        <a href=\"#/completed\" data-filter = \"completed\" class=\"filter\">Completed</a>\n      </li>\n    </ul>\n    <button class=\"clear-completed\">Clear completed</button>\n  </footer>\n</section>\n";
 exports.default = _default;
 },{}],"js/modules/TodoList.js":[function(require,module,exports) {
 "use strict";
@@ -304,7 +304,7 @@ var TodoList = /*#__PURE__*/function () {
     this.todos = [];
     this.loadTodos(data.todos);
     this.template = _todoList.default;
-    this.render();
+    this.render(this.todos);
   }
 
   _createClass(TodoList, [{
@@ -329,11 +329,11 @@ var TodoList = /*#__PURE__*/function () {
     }
   }, {
     key: "render",
-    value: function render() {
+    value: function render(todos) {
       this.elt.innerHTML = this.template;
       this.listElt = this.elt.querySelector('.todo-list');
 
-      var _iterator2 = _createForOfIteratorHelper(this.todos),
+      var _iterator2 = _createForOfIteratorHelper(todos),
           _step2;
 
       try {
@@ -388,6 +388,27 @@ var TodoList = /*#__PURE__*/function () {
       this.setNotCompletedNumber();
     }
   }, {
+    key: "_filter",
+    value: function _filter(filter) {
+      switch (filter) {
+        case 'active':
+          //alert("filtre active");
+          this.render(this.todos.filter(function (todo) {
+            return !todo.completed;
+          }));
+          break;
+
+        case 'completed':
+          this.render(this.todos.filter(function (todo) {
+            return todo.completed;
+          }));
+          break;
+
+        default:
+          this.render(this.todos);
+      }
+    }
+  }, {
     key: "activerBtns",
     value: function activerBtns() {
       var _this = this;
@@ -397,6 +418,29 @@ var TodoList = /*#__PURE__*/function () {
           _this.addTodo();
         }
       };
+
+      var filterBtns = this.elt.querySelectorAll('.filter');
+
+      var _iterator3 = _createForOfIteratorHelper(filterBtns),
+          _step3;
+
+      try {
+        var _loop = function _loop() {
+          var filterBtn = _step3.value;
+
+          filterBtn.onclick = function () {
+            _this._filter(filterBtn.dataset.filter);
+          };
+        };
+
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          _loop();
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
     }
   }]);
 

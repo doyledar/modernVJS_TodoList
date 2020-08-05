@@ -9,7 +9,7 @@ export default class TodoList{
 	this.todos = [];
 	this.loadTodos(data.todos);
   this.template = todoListTemplate;
-	this.render();
+	this.render(this.todos);
 	}
 	loadTodos (todos){
 		for (let todo of todos){
@@ -20,11 +20,11 @@ export default class TodoList{
 
 
 
-  render(){
+  render(todos){
     this.elt.innerHTML = this.template;
 		this.listElt = this.elt.querySelector('.todo-list');
 
-		for (let todo of this.todos){
+		for (let todo of todos){
 			todo.render();
 		}
 			this.setNotCompletedNumber();
@@ -59,13 +59,41 @@ export default class TodoList{
 		this.setNotCompletedNumber();
 	}
 
+	_filter(filter){
+	
+		switch (filter) {
+
+			case 'active':
+				//alert("filtre active");
+				this.render(this.todos.filter(function(todo){
+					return !todo.completed;
+				}));
+				break;
+			case 'completed':
+			this.render(this.todos.filter(function(todo){
+				return todo.completed;
+			}));
+				break;
+			default:
+			this.render(this.todos);
+
+		}
+	}
+
 
 activerBtns(){
 	this.elt.querySelector('.new-todo').onkeyup = (e) =>{
 	if(e.keyCode === 13){
 		this.addTodo();
+		}
 	}
-}
+
+	const filterBtns = this.elt.querySelectorAll('.filter');
+	for (let filterBtn of filterBtns){
+		filterBtn.onclick = () => {
+				this._filter(filterBtn.dataset.filter);
+		}
+	}
 };
 
 }

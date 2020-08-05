@@ -393,6 +393,39 @@ _validate(){
 VIDEO 10
 Les FILTRES
 
+On rajoute une classe filter sur les liens des filtres, dans la todolist
+
+Ensuite, il faut les capturer au niveau de la todolist
+
+Dans activerBtns, rajouter 
+	const filterBtns = this.elt.querySelectorAll(.filter);
+	for (let filterBtn of filterBtns){
+		filterBtn.onclick = () => {
+				this._filter();
+		}
+	}
+
+Dans le template de la todolist, rajouter un data-filter = "nomFiltre"
+
+=>
+
+const filterBtns = this.elt.querySelectorAll('.filter');
+	for (let filterBtn of filterBtns){
+		filterBtn.onclick = () => {
+				this._filter(filterBtn.dataset.filter);
+		}
+	}
+};_filter(filter){
+		alert(filter);
+	}
+
+
+Faire un switch dans la fonction _filter
+
+
+
+
+Créer la fonction _filter()
 
 
 
