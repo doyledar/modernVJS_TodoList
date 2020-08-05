@@ -39,6 +39,20 @@ export default class Todo {
 
 	}
 
+	_edit(){
+		this.elt.querySelector('.editable').innerHTML = `
+		<input type="text" class="validate" value : "${this.content}" />
+	`	;
+this._activerBtns();
+	}
+
+	_validate(){
+			//alert("coucou");
+			this.content = this.elt.querySelector('.validate').value;
+			this.elt.querySelector('.editable').innerHTML = this.content;
+			this._activerBtns();
+	}
+
 
 	_activerBtns(){
 			this.elt.querySelector('.toggle').onclick = () =>{
@@ -48,5 +62,20 @@ export default class Todo {
 			this.elt.querySelector('.destroy').onclick = () =>{
 				this._destroy();
 			};
+
+			this.elt.querySelector('.editable').ondblclick = () =>{
+				this._edit();
+			};
+
+			if(this.elt.querySelector('.validate')){
+				this.elt.querySelector('.validate').onkeyup = (e) =>{
+				if(e.keyCode === 13){
+				this._validate();
+					}
+				}
+			}
+
 	}
+
+
 }

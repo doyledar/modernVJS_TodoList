@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/doyledar/modernVJS_TodoList/issues"
   },
-  "homepage": "https://github.com/doyledar/modernVJS_TodoList#readme"
+  "homepage": "https://github.com/doyledar/modernVJS_TodoList#readme",
+  "devDependencies": {
+    "cssnano": "^4.1.10"
+  },
+  "dependencies": {}
 }

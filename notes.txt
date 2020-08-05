@@ -349,5 +349,73 @@ this.parent.SetNotCompletedNumber();
 
 Au niveau du parent, todoList.js
 removeOneById(id){
-  this.todos = this.todos.filter();	
+  this.todos = this.todos.filter(function(todo){
+	return todo.id != id;
+});	
+}
+
+VIDEO 9
+Modifier une tâche
+
+Au niveau du todo
+Activer label - classe editable
+
+_edit(){
+	this.elt.querySelector('.editable').innerHTML = `
+	<input type="text" class="validate" value : "${this.content}" />
+`;
+this._activerBtns();
+}
+
+this.elt.querySelector('.editable').ondblclick = () {
+	this._edit();
+}
+
+
+if(this.elt.querySelector('.validate')){
+				this.elt.querySelector('.validate').onkeyup = (e) =>{
+				if(e.keyCode === 13){
+				this._validate();
+					}
+				}
+			}
+
+
+_validate(){
+			//alert("coucou");
+			this.content = this.elt.querySelector('.validate').value;
+			this.elt.querySelector('.editable').innerHTML = this.content;
+			this._activerBtns();
+	}
+
+
+
+VIDEO 10
+Les FILTRES
+
+
+
+
+LOCAL STORAGE
+
+dans le main
+
+window.localStorage.test = "coucou";
+
+alert(window.localStorage.test);
+
+
+
+Dans la todolist
+
+REmplacer this.todo = [];
+this._loadTodos(data.todos);
+
+
+dans load
+_loadTodos(todos){
+	if(!window.localStorage.todos){
+		window.localStoarge.todos = JSON.stringify		(todos);
+	}
+	console.table(JSON.parse(localStorage.todos));
 }

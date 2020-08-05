@@ -145,7 +145,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _default = "\n  <li data-id =\"{{id}}\" class=\"{{isCompletedClass}}\">\n    <input class=\"toggle\" type=\"checkbox\" {{isCompletedChecked}}/>\n    <label>{{content}}</label>\n    <button class=\"destroy\"></button>\n  </li>\n";
+var _default = "\n  <li data-id =\"{{id}}\" class=\"{{isCompletedClass}}\">\n    <input class=\"toggle\" type=\"checkbox\" {{isCompletedChecked}}/>\n    <label class=\"editable\">{{content}}</label>\n    <button class=\"destroy\"></button>\n  </li>\n";
 exports.default = _default;
 },{}],"js/modules/Todo.js":[function(require,module,exports) {
 "use strict";
@@ -212,6 +212,22 @@ var Todo = /*#__PURE__*/function () {
       this.parent.removeOneById(this.id); //this.parent.SetNotCompletedNumber();
     }
   }, {
+    key: "_edit",
+    value: function _edit() {
+      this.elt.querySelector('.editable').innerHTML = "\n\t\t<input type=\"text\" class=\"validate\" value : \"".concat(this.content, "\" />\n\t");
+
+      this._activerBtns();
+    }
+  }, {
+    key: "_validate",
+    value: function _validate() {
+      //alert("coucou");
+      this.content = this.elt.querySelector('.validate').value;
+      this.elt.querySelector('.editable').innerHTML = this.content;
+
+      this._activerBtns();
+    }
+  }, {
     key: "_activerBtns",
     value: function _activerBtns() {
       var _this = this;
@@ -223,6 +239,18 @@ var Todo = /*#__PURE__*/function () {
       this.elt.querySelector('.destroy').onclick = function () {
         _this._destroy();
       };
+
+      this.elt.querySelector('.editable').ondblclick = function () {
+        _this._edit();
+      };
+
+      if (this.elt.querySelector('.validate')) {
+        this.elt.querySelector('.validate').onkeyup = function (e) {
+          if (e.keyCode === 13) {
+            _this._validate();
+          }
+        };
+      }
     }
   }]);
 
@@ -418,7 +446,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64129" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59913" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
