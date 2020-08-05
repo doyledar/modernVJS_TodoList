@@ -388,6 +388,14 @@ var TodoList = /*#__PURE__*/function () {
       this.setNotCompletedNumber();
     }
   }, {
+    key: "removeAllCompleted",
+    value: function removeAllCompleted() {
+      this.todos = this.todos.filter(function (todo) {
+        return !todo.completed;
+      });
+      this.render(this.todos);
+    }
+  }, {
     key: "_filter",
     value: function _filter(filter) {
       switch (filter) {
@@ -441,6 +449,10 @@ var TodoList = /*#__PURE__*/function () {
       } finally {
         _iterator3.f();
       }
+
+      this.elt.querySelector('.clear-completed').onclick = function () {
+        _this.removeAllCompleted();
+      };
     }
   }]);
 

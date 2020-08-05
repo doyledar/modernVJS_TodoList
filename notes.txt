@@ -427,6 +427,58 @@ Faire un switch dans la fonction _filter
 
 Créer la fonction _filter()
 
+	switch (filter) {
+
+			case 'active':
+				//alert("filtre active");
+				this.render(this.todos.filter(function(todo){
+					return !todo.completed;
+				}));
+				break;
+			case 'completed':
+			this.render(this.todos.filter(function(todo){
+				return todo.completed;
+			}));
+				break;
+			default:
+			this.render(this.todos);
+
+		}
+	}
+
+
+Après avoir modifié le render()
+render(todos){
+    this.elt.innerHTML = this.template;
+		this.listElt = this.elt.querySelector('.todo-list');
+
+		for (let todo of todos){
+			todo.render();
+		}
+			this.setNotCompletedNumber();
+			this.activerBtns();
+	}
+
+
+VIDEO 11
+Suppression des tâches terminées
+
+this.elt.querySelector('.clear-completed').onclick = () =>{
+
+		this.removeAllCompeted();
+
+	}
+
+
+removeAllCompleted(){
+		this.todos = this.todos.filter(function(todo){
+			return !todo.completed
+		})
+	}
+
+
+
+
 
 
 LOCAL STORAGE

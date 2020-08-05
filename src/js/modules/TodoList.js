@@ -59,8 +59,15 @@ export default class TodoList{
 		this.setNotCompletedNumber();
 	}
 
+	removeAllCompleted(){
+		this.todos = this.todos.filter(function(todo){
+			return !todo.completed
+		});
+		this.render(this.todos);
+	}
+
 	_filter(filter){
-	
+
 		switch (filter) {
 
 			case 'active':
@@ -94,6 +101,13 @@ activerBtns(){
 				this._filter(filterBtn.dataset.filter);
 		}
 	}
+
+	this.elt.querySelector('.clear-completed').onclick = () =>{
+
+		this.removeAllCompleted();
+
+	}
+
 };
 
 }
